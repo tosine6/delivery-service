@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -56,7 +57,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         consignment.setSenderLocation(consignmentDTO.getSenderLocation());
         consignment.setReceiverLocation(consignmentDTO.getReceiverLocation());
         consignment.setConsignmentComment(consignmentDTO.getConsignmentComment());
-
+        consignment.setQuantity(consignmentDTO.getQuantity());
         consignmentRepository.save(consignment);
         logger.info("Consignment created...");
         return consignment;
@@ -88,7 +89,10 @@ public class ConsignmentServiceImpl implements ConsignmentService {
 
     @Override
     public ConsignmentResponseDTO findConsignmentById(UUID id) {
-        logger.info("Fetching consignment by id ...");
+        logger.info("Fetching consignment by id ..."+ id);
+        Optional<Consignment> consignment2 = consignmentRepository.findById(id);
+        logger.info("consignment2 ", consignment2.get().getQuantity());
+
         Consignment consignment = consignmentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "consignment not found!"));
         return ConsignmentResponseDTO.mapResponse(consignment);
@@ -96,6 +100,8 @@ public class ConsignmentServiceImpl implements ConsignmentService {
 
     @Override
     public Consignment updateConsignment(UUID id, ConsignmentDTO request) {
+        logger.info("updating consignment by id ..."+id);
+
         Consignment consignment = consignmentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "consignment not found!"));
 
@@ -104,6 +110,12 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         }
         if(null != request.getReceiverEmail()){
             consignment.setReceiverEmail(request.getReceiverEmail());
+        }
+        if(null != request.getReceiverName()){
+            consignment.setReceiverName(request.getReceiverName());
+        }
+        if(null != request.getReceiverLocation()){
+            consignment.setReceiverLocation(request.getReceiverLocation());
         }
         if(null != request.getBranch()){
             consignment.setBranch(request.getBranch());
@@ -148,6 +160,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
             consignment.setConsignmentComment(request.getConsignmentComment());
         }
         consignmentRepository.saveAndFlush(consignment);
+        logger.info("done updating consignment by id ...");
         return consignment;
     }
 }

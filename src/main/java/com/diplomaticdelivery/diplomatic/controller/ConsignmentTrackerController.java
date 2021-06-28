@@ -30,6 +30,18 @@ public class ConsignmentTrackerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/fetch-by-consignment/{id}")
+    public ResponseEntity <List<ConsignmentTracker>> getAllForAConsignment(@PathVariable("id") UUID id) {
+        List<ConsignmentTracker> response = consignmentTrackerService.fetchConsignmentTrackers(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/fetch-by-id/{id}")
+    public ResponseEntity <ConsignmentTracker> getTrackerById(@PathVariable("id") UUID id) {
+        ConsignmentTracker response = consignmentTrackerService.getById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity <ConsignmentTracker> updateConsignmentTracker(@PathVariable("id") UUID id, @RequestBody ConsignmentTrackerDTO request) {
         ConsignmentTracker response = consignmentTrackerService.update(request, id);

@@ -10,6 +10,8 @@ public interface ConsignmentTrackerService {
 
     ConsignmentTracker save(ConsignmentTrackerDTO tracker);
     ConsignmentTracker update(ConsignmentTrackerDTO tracker, UUID id);
+    ConsignmentTracker getById(UUID id);
     List<ConsignmentTracker> fetchAll();
+    List<ConsignmentTracker> fetchConsignmentTrackers(UUID id);
 
 }

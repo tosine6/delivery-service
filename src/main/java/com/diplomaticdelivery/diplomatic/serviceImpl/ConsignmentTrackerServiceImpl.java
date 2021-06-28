@@ -20,7 +20,7 @@ import java.util.UUID;
 @Service
 public class ConsignmentTrackerServiceImpl implements ConsignmentTrackerService {
 
-    Logger logger = LoggerFactory.getLogger(ConsignmentTrackerServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(ConsignmentTrackerServiceImpl.class);
 
     @Autowired
     private ConsignmentTrackerRepository consignmentTrackerRepo;
@@ -30,7 +30,7 @@ public class ConsignmentTrackerServiceImpl implements ConsignmentTrackerService 
 
     @Override
     public ConsignmentTracker save(ConsignmentTrackerDTO tracker) {
-
+        logger.info("creating tracker by consignment...");
         Consignment consignment = consignmentRepo.findById(tracker.getConsignmentId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Consignment not found!"));
 
@@ -42,13 +42,15 @@ public class ConsignmentTrackerServiceImpl implements ConsignmentTrackerService 
         tracker1.setProgressLevel(tracker.getProgressLevel());
 
         consignmentTrackerRepo.save(tracker1);
+        logger.info("tracker creation done...");
         return tracker1;
     }
 
     @Override
     public ConsignmentTracker update(ConsignmentTrackerDTO request, UUID id) {
-        ConsignmentTracker consignmentTracker = consignmentTrackerRepo.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Consignment tracker not found!"));
+
+        logger.info("updating tracker...");
+        ConsignmentTracker consignmentTracker = getById(id);
 
         if(null != request.getConsignmentId()){
             Consignment consignment = consignmentRepo.findById(request.getConsignmentId())
@@ -64,13 +66,34 @@ public class ConsignmentTrackerServiceImpl implements ConsignmentTrackerService 
         if(null != request.getProgressLevel()){
             consignmentTracker.setProgressLevel(request.getProgressLevel());
         }
+        if(null != request.getStatus()){
+            consignmentTracker.setStatus(request.getStatus());
+        }
 
         consignmentTrackerRepo.saveAndFlush(consignmentTracker);
+        logger.info("updating tracker done...");
         return consignmentTracker;
+    }
+
+    @Override
+    public ConsignmentTracker getById(UUID id) {
+        logger.info("fetching by id...");
+        return consignmentTrackerRepo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Consignment tracker not found!"));
+
     }
 
     @Override
     public List<ConsignmentTracker> fetchAll() {
         return consignmentTrackerRepo.findAll();
+    }
+
+    @Override
+    public List<ConsignmentTracker> fetchConsignmentTrackers(UUID id) {
+        logger.info("fetching trackers by consignment...");
+        Consignment consignment = consignmentRepo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Consignment not found!"));
+
+        return consignmentTrackerRepo.findByConsignment(consignment);
     }
 }

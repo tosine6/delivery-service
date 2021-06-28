@@ -44,6 +44,12 @@ public class ConsignmentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/trackers/{id}")
+    public ResponseEntity <ConsignmentResponseDTO> getConsignmentTrackers(@PathVariable("id") UUID id) {
+        ConsignmentResponseDTO response = consignmentService.findConsignmentById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity <Consignment> deleteConsignment(@PathVariable("id") UUID id) {
         Consignment response = consignmentService.deleteConsignment(id);
