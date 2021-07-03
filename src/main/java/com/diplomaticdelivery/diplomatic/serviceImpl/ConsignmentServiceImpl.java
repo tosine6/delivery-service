@@ -79,12 +79,12 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public Consignment findConsignment(String id) {
+    public ConsignmentResponseDTO findConsignment(String id) {
         Consignment consignment = consignmentRepository.findByConsignmentId(id);
         if(null == consignment)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "consignment not found!");
 
-        return consignment;
+        return ConsignmentResponseDTO.mapResponse(consignment);
     }
 
     @Override
@@ -122,6 +122,9 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         }
         if(null != request.getBranchPhoneNumber()){
             consignment.setBranchPhoneNumber(request.getBranchPhoneNumber());
+        }
+        if(null != request.getBranchEmail()){
+            consignment.setBranchEmail(request.getBranchEmail());
         }
         if(null != request.getDescription()){
             consignment.setDescription(request.getDescription());

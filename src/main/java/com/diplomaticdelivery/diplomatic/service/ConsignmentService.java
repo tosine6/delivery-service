@@ -12,7 +12,7 @@ public interface ConsignmentService {
     Consignment create(ConsignmentDTO consignmentDTO);
     List<ConsignmentResponseDTO> fetchAll();
     Consignment deleteConsignment(UUID id);
-    Consignment findConsignment(String id);
+    ConsignmentResponseDTO findConsignment(String id);
     Consignment updateConsignment(UUID id, ConsignmentDTO request);
     ConsignmentResponseDTO findConsignmentById(UUID id);
 

@@ -33,8 +33,8 @@ public class ConsignmentController {
     }
 
     @GetMapping("/find-consignment/{id}")
-    public ResponseEntity <Consignment> getConsignment(@PathVariable("id") String id) {
-        Consignment response = consignmentService.findConsignment(id);
+    public ResponseEntity <ConsignmentResponseDTO> getConsignment(@PathVariable("id") String id) {
+        ConsignmentResponseDTO response = consignmentService.findConsignment(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
