@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocationResponseDTO {
+public class LocationResponse {
 
     private String address;
     private String state;
     private String city;
 
-    public static LocationResponseDTO mapResponse(Location location){
+    public static LocationResponse mapResponse(Location location){
 
-        return LocationResponseDTO.builder()
+        return LocationResponse.builder()
                 .address(location.getAddress())
                 .state(location.getState())
                 .city(location.getCity())

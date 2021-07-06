@@ -3,7 +3,7 @@ package com.diplomaticdelivery.diplomatic.controller;
 
 import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentDTO;
 import com.diplomaticdelivery.diplomatic.model.Consignment;
-import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponseDTO;
+import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponse;
 import com.diplomaticdelivery.diplomatic.service.ConsignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,26 +27,26 @@ public class ConsignmentController {
     }
 
     @GetMapping("/list-all")
-    public ResponseEntity <List<ConsignmentResponseDTO>> getAllConsignment() {
-        List<ConsignmentResponseDTO> response = consignmentService.fetchAll();
+    public ResponseEntity <List<ConsignmentResponse>> getAllConsignment() {
+        List<ConsignmentResponse> response = consignmentService.fetchAll();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/find-consignment/{id}")
-    public ResponseEntity <ConsignmentResponseDTO> getConsignment(@PathVariable("id") String id) {
-        ConsignmentResponseDTO response = consignmentService.findConsignment(id);
+    public ResponseEntity <ConsignmentResponse> getConsignment(@PathVariable("id") String id) {
+        ConsignmentResponse response = consignmentService.findConsignment(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity <ConsignmentResponseDTO> getConsignmentById(@PathVariable("id") UUID id) {
-        ConsignmentResponseDTO response = consignmentService.findConsignmentById(id);
+    public ResponseEntity <ConsignmentResponse> getConsignmentById(@PathVariable("id") UUID id) {
+        ConsignmentResponse response = consignmentService.findConsignmentById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/trackers/{id}")
-    public ResponseEntity <ConsignmentResponseDTO> getConsignmentTrackers(@PathVariable("id") UUID id) {
-        ConsignmentResponseDTO response = consignmentService.findConsignmentById(id);
+    public ResponseEntity <ConsignmentResponse> getConsignmentTrackers(@PathVariable("id") UUID id) {
+        ConsignmentResponse response = consignmentService.findConsignmentById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

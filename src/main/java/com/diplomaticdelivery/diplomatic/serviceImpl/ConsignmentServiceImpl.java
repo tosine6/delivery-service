@@ -6,7 +6,7 @@ import com.diplomaticdelivery.diplomatic.model.Comment;
 import com.diplomaticdelivery.diplomatic.model.Consignment;
 import com.diplomaticdelivery.diplomatic.model.User;
 import com.diplomaticdelivery.diplomatic.repository.ConsignmentRepository;
-import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponseDTO;
+import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponse;
 import com.diplomaticdelivery.diplomatic.service.ConsignmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,9 +64,9 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public List<ConsignmentResponseDTO> fetchAll() {
+    public List<ConsignmentResponse> fetchAll() {
         logger.info("Fetching all created consignments...");
-        return consignmentRepository.findAll().stream().map((c) -> ConsignmentResponseDTO.mapResponse(c)).collect(Collectors.toList());
+        return consignmentRepository.findAll().stream().map((c) -> ConsignmentResponse.mapResponse(c)).collect(Collectors.toList());
     }
 
     @Override
@@ -79,23 +79,23 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public ConsignmentResponseDTO findConsignment(String id) {
+    public ConsignmentResponse findConsignment(String id) {
         Consignment consignment = consignmentRepository.findByConsignmentId(id);
         if(null == consignment)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "consignment not found!");
 
-        return ConsignmentResponseDTO.mapResponse(consignment);
+        return ConsignmentResponse.mapResponse(consignment);
     }
 
     @Override
-    public ConsignmentResponseDTO findConsignmentById(UUID id) {
+    public ConsignmentResponse findConsignmentById(UUID id) {
         logger.info("Fetching consignment by id ..."+ id);
         Optional<Consignment> consignment2 = consignmentRepository.findById(id);
         logger.info("consignment2 ", consignment2.get().getQuantity());
 
         Consignment consignment = consignmentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "consignment not found!"));
-        return ConsignmentResponseDTO.mapResponse(consignment);
+        return ConsignmentResponse.mapResponse(consignment);
     }
 
     @Override

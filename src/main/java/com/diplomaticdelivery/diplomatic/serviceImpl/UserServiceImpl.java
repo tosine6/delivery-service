@@ -20,16 +20,17 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
-
     @Override
     @Transactional
     public User registerUser(RegisterDTO signUp) {
-
-        Location location = Location.builder()
-                .address(signUp.getLocation().getAddress())
-                .city(signUp.getLocation().getCity())
-                .state(signUp.getLocation().getState())
-                .build();
+        Location location = null;
+        if (null != signUp.getLocation()) {
+             location = Location.builder()
+                    .address(signUp.getLocation().getAddress())
+                    .city(signUp.getLocation().getCity())
+                    .state(signUp.getLocation().getState())
+                    .build();
+        }
 
         User newUser = new User();
         newUser.setEmailAddress(signUp.getEmailAddress());
@@ -42,7 +43,6 @@ public class UserServiceImpl implements UserService {
         newUser.setUsertype(User.UserType.ADMIN);
 
         userRepository.save(newUser);
-
         return newUser;
     }
 }

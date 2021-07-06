@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConsignmentResponseDTO {
+public class ConsignmentResponse {
 
     private UUID id;
     private String consignmentId;
@@ -43,14 +43,14 @@ public class ConsignmentResponseDTO {
     private String receiverLocation;
     private String consignmentComment;
     private List<CommentDTO> comment;
-    private List<ConsignmentTrackerResponseDTO> consignmentTracker;
+    private List<ConsignmentTrackerResponse> consignmentTracker;
 
-    public static ConsignmentResponseDTO mapResponse(Consignment consigment){
+    public static ConsignmentResponse mapResponse(Consignment consigment){
 
         List<CommentDTO> commentDTOList = consigment.getComment().stream().map((c) -> CommentDTO.mapResponse(c)).collect(Collectors.toList());
-        List<ConsignmentTrackerResponseDTO> consignmentTrackerResponseDTOList = consigment.getConsignmentTracker().stream().map((ct) -> ConsignmentTrackerResponseDTO.mapResponse(ct)).collect(Collectors.toList());
+        List<ConsignmentTrackerResponse> consignmentTrackerResponseDTOList = consigment.getConsignmentTracker().stream().map((ct) -> ConsignmentTrackerResponse.mapResponse(ct)).collect(Collectors.toList());
 
-        return ConsignmentResponseDTO.builder()
+        return ConsignmentResponse.builder()
                 .id(consigment.getId())
                 .branch(consigment.getBranch())
                 .branchPhoneNumber(consigment.getBranchPhoneNumber())

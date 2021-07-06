@@ -20,4 +20,6 @@ public class RegisterDTO {
     private String phoneNumber;
     private String password;
     private Location location;
+    private User.UserType usertype;
+
 }

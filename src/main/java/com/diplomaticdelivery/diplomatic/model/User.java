@@ -18,7 +18,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User extends BaseEntity{
 
-    public enum Gender { MALE, FEMALE, TRANSGENDER };
+    public enum Gender { MALE, FEMALE, TRANSGENDER, OTHERS };
     public enum UserType{ADMIN, CLIENT};
 
     @Column(name = "name", nullable = false)

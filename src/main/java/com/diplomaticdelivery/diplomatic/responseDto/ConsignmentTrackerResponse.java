@@ -15,17 +15,17 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConsignmentTrackerResponseDTO {
+public class ConsignmentTrackerResponse {
     private LocalDateTime deliveryDate;
-    private LocationResponseDTO presentLocation;
+    private LocationResponse presentLocation;
     private String progressLevel;
     private ConsignmentStatus status;
 
-    public static ConsignmentTrackerResponseDTO mapResponse(ConsignmentTracker tracker){
+    public static ConsignmentTrackerResponse mapResponse(ConsignmentTracker tracker){
 
-        LocationResponseDTO location= LocationResponseDTO.mapResponse(tracker.getPresentLocation());
+        LocationResponse location= LocationResponse.mapResponse(tracker.getPresentLocation());
 
-        return ConsignmentTrackerResponseDTO.builder()
+        return ConsignmentTrackerResponse.builder()
                 .presentLocation(location)
                 .deliveryDate(tracker.getDeliveryDate())
                 .progressLevel(tracker.getProgressLevel())

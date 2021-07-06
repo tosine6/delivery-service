@@ -2,7 +2,7 @@ package com.diplomaticdelivery.diplomatic.service;
 
 import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentDTO;
 import com.diplomaticdelivery.diplomatic.model.Consignment;
-import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponseDTO;
+import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,10 +10,10 @@ import java.util.UUID;
 public interface ConsignmentService {
 
     Consignment create(ConsignmentDTO consignmentDTO);
-    List<ConsignmentResponseDTO> fetchAll();
+    List<ConsignmentResponse> fetchAll();
     Consignment deleteConsignment(UUID id);
-    ConsignmentResponseDTO findConsignment(String id);
+    ConsignmentResponse findConsignment(String id);
     Consignment updateConsignment(UUID id, ConsignmentDTO request);
-    ConsignmentResponseDTO findConsignmentById(UUID id);
+    ConsignmentResponse findConsignmentById(UUID id);
 
 }
