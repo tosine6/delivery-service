@@ -33,7 +33,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         User user = new User();
         logger.info("Creating new consignment...");
         Consignment consignment = new Consignment();
-        consignment.setConsignmentId(consignmentDTO.getConsignmentId());
+        consignment.setConsignmentId(generateConsignmentId());
         consignment.setBranch(consignmentDTO.getBranch());
         if(null != consignmentDTO.getComment()){
             Comment comment = CommentDTO.map(consignmentDTO.getComment(),user );
@@ -58,6 +58,8 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         consignment.setReceiverLocation(consignmentDTO.getReceiverLocation());
         consignment.setConsignmentComment(consignmentDTO.getConsignmentComment());
         consignment.setQuantity(consignmentDTO.getQuantity());
+        consignment.setWeight(consignmentDTO.getWeight());
+        consignment.setConsignmentComment(consignmentDTO.getConsignmentComment());
         consignmentRepository.save(consignment);
         logger.info("Consignment created...");
         return consignment;
@@ -165,5 +167,11 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         consignmentRepository.saveAndFlush(consignment);
         logger.info("done updating consignment by id ...");
         return consignment;
+    }
+
+    public String generateConsignmentId(){
+        long number = (long) (Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L);
+
+        return String.valueOf(number);
     }
 }
