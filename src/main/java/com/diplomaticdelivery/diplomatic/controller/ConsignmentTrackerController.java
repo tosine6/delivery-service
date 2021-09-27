@@ -47,4 +47,10 @@ public class ConsignmentTrackerController {
         ConsignmentTracker response = consignmentTrackerService.update(request, id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity <ConsignmentTracker> deleteConsignmentTracker(@PathVariable("id") UUID id) {
+        ConsignmentTracker response = consignmentTrackerService.delete(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

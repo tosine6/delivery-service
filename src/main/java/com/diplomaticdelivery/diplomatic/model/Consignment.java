@@ -9,10 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
@@ -81,13 +78,13 @@ public class Consignment extends BaseEntity{
     @Column(name = "consignmentComment")
     private String consignmentComment;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Collection<Comment> comment;
 
     @Column(name = "pickUp")
     private String pickUp;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "consignment")
+    @OneToMany(mappedBy = "consignment", cascade = CascadeType.ALL)
     private Collection<ConsignmentTracker> consignmentTracker;
 }

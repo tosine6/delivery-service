@@ -96,4 +96,11 @@ public class ConsignmentTrackerServiceImpl implements ConsignmentTrackerService 
 
         return consignmentTrackerRepo.findByConsignment(consignment);
     }
+
+    @Override
+    public ConsignmentTracker delete(UUID id) {
+        ConsignmentTracker consignmentTracker = getById(id);
+        consignmentTrackerRepo.delete(consignmentTracker);
+        return consignmentTracker;
+    }
 }

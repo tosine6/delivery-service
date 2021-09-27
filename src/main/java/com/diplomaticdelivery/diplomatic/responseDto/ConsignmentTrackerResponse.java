@@ -10,12 +10,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConsignmentTrackerResponse {
+    private UUID id;
     private LocalDateTime deliveryDate;
     private LocationResponse presentLocation;
     private String progressLevel;
@@ -26,6 +28,7 @@ public class ConsignmentTrackerResponse {
         LocationResponse location= LocationResponse.mapResponse(tracker.getPresentLocation());
 
         return ConsignmentTrackerResponse.builder()
+                .id(tracker.getId())
                 .presentLocation(location)
                 .deliveryDate(tracker.getDeliveryDate())
                 .progressLevel(tracker.getProgressLevel())

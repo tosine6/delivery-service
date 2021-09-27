@@ -18,7 +18,7 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-    @PostMapping("/save")
+    @PostMapping("/deposit")
     public ResponseEntity<Transaction> saveTransaction(@RequestBody TransactionDTO request) {
         Transaction response = transactionService.save(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);

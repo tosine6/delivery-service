@@ -13,5 +13,6 @@ public interface ConsignmentTrackerService {
     ConsignmentTracker getById(UUID id);
     List<ConsignmentTracker> fetchAll();
     List<ConsignmentTracker> fetchConsignmentTrackers(UUID id);
+    ConsignmentTracker delete(UUID id);
 
 }

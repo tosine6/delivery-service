@@ -21,8 +21,8 @@ public class User extends BaseEntity{
     public enum Gender { MALE, FEMALE, TRANSGENDER, OTHERS };
     public enum UserType{ADMIN, CLIENT};
 
-    @Column(name = "name", nullable = false)
     @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "user_gender")
@@ -33,18 +33,19 @@ public class User extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private UserType usertype;
 
+    @Column(name = "profilePicture")
     private String profilePicture;
 
-    @Column(name = "emailAddress", unique = true, nullable = false)
 //    @Email
     @NotNull
+    @Column(name = "emailAddress", unique = true, nullable = false)
     private String emailAddress;
 
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "password")
     @JsonIgnore
+    @Column(name = "password")
     private String password;
 
     @ManyToOne(cascade = {CascadeType.ALL})

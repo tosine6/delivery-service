@@ -8,8 +8,6 @@ import com.diplomaticdelivery.diplomatic.repository.TransactionRepository;
 import com.diplomaticdelivery.diplomatic.repository.UserRepository;
 import com.diplomaticdelivery.diplomatic.requestDto.AccountBalanceDTO;
 import com.diplomaticdelivery.diplomatic.requestDto.AccountDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.AccountStatementDTO;
-import com.diplomaticdelivery.diplomatic.responseDto.AccountResponse;
 import com.diplomaticdelivery.diplomatic.responseDto.AccountStatementResponse;
 import com.diplomaticdelivery.diplomatic.service.AccountService;
 import org.modelmapper.ModelMapper;
@@ -33,7 +31,6 @@ public class AccountServiceImpl implements AccountService {
     private UserRepository userRepository;
     @Autowired
     private AccountRepository accountRepository;
-
     @Autowired
     private TransactionRepository transactionRepository;
 
@@ -102,7 +99,7 @@ public class AccountServiceImpl implements AccountService {
 
         Account account = accountRepository.findByAccountNumber(accountNumber);
         if(null == account){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found!");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid account number!");
         }
         return account;
     }
