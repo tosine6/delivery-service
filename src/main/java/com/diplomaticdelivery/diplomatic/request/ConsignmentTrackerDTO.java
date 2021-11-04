@@ -1,6 +1,6 @@
-package com.diplomaticdelivery.diplomatic.requestDto;
+package com.diplomaticdelivery.diplomatic.request;
 
-import com.diplomaticdelivery.diplomatic.enumclass.ConsignmentStatus;
+import com.diplomaticdelivery.diplomatic.enums.ConsignmentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.diplomaticdelivery.diplomatic.responseDto;
+package com.diplomaticdelivery.diplomatic.response;
 
-import com.diplomaticdelivery.diplomatic.enumclass.Status;
+import com.diplomaticdelivery.diplomatic.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

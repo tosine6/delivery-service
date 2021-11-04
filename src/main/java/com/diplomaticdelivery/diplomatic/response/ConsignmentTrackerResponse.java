@@ -1,9 +1,7 @@
-package com.diplomaticdelivery.diplomatic.responseDto;
+package com.diplomaticdelivery.diplomatic.response;
 
-import com.diplomaticdelivery.diplomatic.enumclass.ConsignmentStatus;
+import com.diplomaticdelivery.diplomatic.enums.ConsignmentStatus;
 import com.diplomaticdelivery.diplomatic.model.ConsignmentTracker;
-import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentTrackerDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.LocationDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

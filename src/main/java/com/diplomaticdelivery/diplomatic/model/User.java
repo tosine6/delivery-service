@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+import javax.validation.constraints.Email;
+import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name = "users")
@@ -36,19 +38,26 @@ public class User extends BaseEntity{
     @Column(name = "profilePicture")
     private String profilePicture;
 
-//    @Email
-    @NotNull
+    @Email
     @Column(name = "emailAddress", unique = true, nullable = false)
     private String emailAddress;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "userName", unique = true, nullable = false)
+    private String userName;
     private String phoneNumber;
+    private String ssn;
+    private LocalDateTime dateOfBirth;
+    private String driversLicence;
+    private LocalDateTime lastLogIn;
 
     @JsonIgnore
-    @Column(name = "password")
     private String password;
-
     @ManyToOne(cascade = {CascadeType.ALL})
     private Location location;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "roles_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
 }

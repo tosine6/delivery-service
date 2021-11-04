@@ -2,21 +2,21 @@ package com.diplomaticdelivery.diplomatic.service;
 
 import com.diplomaticdelivery.diplomatic.model.Account;
 import com.diplomaticdelivery.diplomatic.model.Transaction;
-import com.diplomaticdelivery.diplomatic.requestDto.AccountBalanceDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.AccountDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.AccountStatementDTO;
-import com.diplomaticdelivery.diplomatic.responseDto.AccountResponse;
-import com.diplomaticdelivery.diplomatic.responseDto.AccountStatementResponse;
+import com.diplomaticdelivery.diplomatic.request.AccountBalanceDTO;
+import com.diplomaticdelivery.diplomatic.request.CreateAccountDTO;
+import com.diplomaticdelivery.diplomatic.response.AccountStatementResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface AccountService {
 
-    Account create(AccountDTO request);
+    Account create(CreateAccountDTO request);
     List<Account> fetchAll();
     Transaction transferFund(AccountBalanceDTO request);
     AccountStatementResponse getAccountStatement(String  accountNumber);
-    Account depositFund(AccountDTO request);
+    Account depositFund(CreateAccountDTO request);
     Account findByAccountNumber(String accountNumber);
+    Account fetchUserAccount(UUID userId);
 
 }

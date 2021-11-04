@@ -1,4 +1,4 @@
-package com.diplomaticdelivery.diplomatic.enumclass;
+package com.diplomaticdelivery.diplomatic.enums;
 
 public enum ConsignmentStatus {
 

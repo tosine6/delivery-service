@@ -1,8 +1,8 @@
 package com.diplomaticdelivery.diplomatic.service;
 
-import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentDTO;
+import com.diplomaticdelivery.diplomatic.request.ConsignmentDTO;
 import com.diplomaticdelivery.diplomatic.model.Consignment;
-import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponse;
+import com.diplomaticdelivery.diplomatic.response.ConsignmentResponse;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,12 +1,12 @@
 package com.diplomaticdelivery.diplomatic.serviceImpl;
 
-import com.diplomaticdelivery.diplomatic.requestDto.CommentDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentDTO;
+import com.diplomaticdelivery.diplomatic.request.CommentDTO;
+import com.diplomaticdelivery.diplomatic.request.ConsignmentDTO;
 import com.diplomaticdelivery.diplomatic.model.Comment;
 import com.diplomaticdelivery.diplomatic.model.Consignment;
 import com.diplomaticdelivery.diplomatic.model.User;
 import com.diplomaticdelivery.diplomatic.repository.ConsignmentRepository;
-import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponse;
+import com.diplomaticdelivery.diplomatic.response.ConsignmentResponse;
 import com.diplomaticdelivery.diplomatic.service.ConsignmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

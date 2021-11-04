@@ -1,6 +1,6 @@
 package com.diplomaticdelivery.diplomatic.serviceImpl;
 
-import com.diplomaticdelivery.diplomatic.requestDto.CommentDTO;
+import com.diplomaticdelivery.diplomatic.request.CommentDTO;
 import com.diplomaticdelivery.diplomatic.model.Comment;
 import com.diplomaticdelivery.diplomatic.model.User;
 import com.diplomaticdelivery.diplomatic.repository.CommentRepository;

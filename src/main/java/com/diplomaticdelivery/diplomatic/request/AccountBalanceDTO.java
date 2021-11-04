@@ -1,4 +1,4 @@
-package com.diplomaticdelivery.diplomatic.requestDto;
+package com.diplomaticdelivery.diplomatic.request;
 
 
 import lombok.AllArgsConstructor;

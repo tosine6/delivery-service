@@ -1,6 +1,6 @@
 package com.diplomaticdelivery.diplomatic.service;
 
-import com.diplomaticdelivery.diplomatic.requestDto.CommentDTO;
+import com.diplomaticdelivery.diplomatic.request.CommentDTO;
 import com.diplomaticdelivery.diplomatic.model.Comment;
 
 import java.util.List;

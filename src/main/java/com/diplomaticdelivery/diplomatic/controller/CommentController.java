@@ -1,6 +1,6 @@
 package com.diplomaticdelivery.diplomatic.controller;
 
-import com.diplomaticdelivery.diplomatic.requestDto.CommentDTO;
+import com.diplomaticdelivery.diplomatic.request.CommentDTO;
 import com.diplomaticdelivery.diplomatic.model.Comment;
 import com.diplomaticdelivery.diplomatic.service.CommentService;
 import io.swagger.annotations.ApiOperation;

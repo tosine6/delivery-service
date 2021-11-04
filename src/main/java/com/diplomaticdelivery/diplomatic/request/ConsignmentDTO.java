@@ -1,14 +1,9 @@
-package com.diplomaticdelivery.diplomatic.requestDto;
+package com.diplomaticdelivery.diplomatic.request;
 
-import com.diplomaticdelivery.diplomatic.model.Consignment;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Data

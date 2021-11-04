@@ -1,6 +1,6 @@
 package com.diplomaticdelivery.diplomatic.model;
 
-import com.diplomaticdelivery.diplomatic.enumclass.ConsignmentStatus;
+import com.diplomaticdelivery.diplomatic.enums.ConsignmentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

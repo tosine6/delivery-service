@@ -2,7 +2,7 @@ package com.diplomaticdelivery.diplomatic.controller;
 
 
 import com.diplomaticdelivery.diplomatic.model.Transaction;
-import com.diplomaticdelivery.diplomatic.requestDto.TransactionDTO;
+import com.diplomaticdelivery.diplomatic.request.TransactionDTO;
 import com.diplomaticdelivery.diplomatic.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

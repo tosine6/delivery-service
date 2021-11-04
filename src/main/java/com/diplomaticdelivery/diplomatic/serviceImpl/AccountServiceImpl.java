@@ -1,59 +1,84 @@
 package com.diplomaticdelivery.diplomatic.serviceImpl;
 
+import com.diplomaticdelivery.diplomatic.enums.AccountType;
+import com.diplomaticdelivery.diplomatic.enums.CurrencyCode;
 import com.diplomaticdelivery.diplomatic.model.Account;
+import com.diplomaticdelivery.diplomatic.model.Location;
 import com.diplomaticdelivery.diplomatic.model.Transaction;
 import com.diplomaticdelivery.diplomatic.model.User;
 import com.diplomaticdelivery.diplomatic.repository.AccountRepository;
 import com.diplomaticdelivery.diplomatic.repository.TransactionRepository;
 import com.diplomaticdelivery.diplomatic.repository.UserRepository;
-import com.diplomaticdelivery.diplomatic.requestDto.AccountBalanceDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.AccountDTO;
-import com.diplomaticdelivery.diplomatic.responseDto.AccountStatementResponse;
+import com.diplomaticdelivery.diplomatic.request.AccountBalanceDTO;
+import com.diplomaticdelivery.diplomatic.request.CreateAccountDTO;
+import com.diplomaticdelivery.diplomatic.response.AccountStatementResponse;
 import com.diplomaticdelivery.diplomatic.service.AccountService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class AccountServiceImpl implements AccountService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
-
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private AccountRepository accountRepository;
-    @Autowired
     private TransactionRepository transactionRepository;
+    private BCryptPasswordEncoder passwordEncoder;
+    ModelMapper mapper = new ModelMapper();
 
     @Override
-    public Account create(AccountDTO request) {
-        logger.info("saving account...");
-        User existingUser = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
-        ModelMapper mapper = new ModelMapper();
-        String accountNumber = generateAccountNumber();
-
-        Account newAccount = mapper.map(request, Account.class);
-        newAccount.setAccountHolder(existingUser);
-        newAccount.setAccountNumber(accountNumber);
-
-        accountRepository.save(newAccount);
-        logger.info("account saved...");
+    public Account create(CreateAccountDTO request) {
+        log.info("saving account...");
+        User existingUser = userRepository.findByName(request.getName());
+        if(null != existingUser){throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with name "+request.getName()+" already exist!");}
+        String password = passwordEncoder.encode(request.getPassword());
+        LocalDateTime dateOfBirth = LocalDateTime.of(request.getDateOfBirth(), LocalTime.MIDNIGHT);
+        Location location = Location.builder().address(request.getLocation().getAddress()).city(request.getLocation().getCity())
+                .city(request.getLocation().getCity()).build();
+        User newUser = User.builder().name(request.getName()).dateOfBirth(dateOfBirth).emailAddress(request.getEmailAddress())
+                .driversLicence(request.getDriversLicence()).ssn(request.getSsn()).password(password).location(location)
+                .usertype(User.UserType.CLIENT).phoneNumber(request.getPhoneNumber()).userName(request.getEmailAddress()).build();
+        userRepository.save(newUser);
+        Account newAccount = createAccount(request,newUser);
         return newAccount;
+    }
+
+    public Account createAccount(CreateAccountDTO request, User newUser){
+        //Generate accountNumber
+        String accountNumber = generateAccountNumber();
+        Account newAccount = Account.builder().currencyCode(CurrencyCode.USD).accountBalance(BigDecimal.ZERO).previousBalance(BigDecimal.ZERO)
+                .accountName(request.getName()).accountNumber(accountNumber).accountType(AccountType.PERSONAL_ACCOUNT)
+                .accountHolder(newUser).build();
+        return accountRepository.save(newAccount);
+    }
+
+    public Account createAccount(User existingUser){
+        //Generate accountNumber
+        String accountNumber = generateAccountNumber();
+        Account newAccount = Account.builder().currencyCode(CurrencyCode.USD).accountBalance(BigDecimal.ZERO).previousBalance(BigDecimal.ZERO)
+                .accountName(existingUser.getName()).accountNumber(accountNumber).accountType(AccountType.PERSONAL_ACCOUNT)
+                .accountHolder(existingUser).build();
+        return accountRepository.save(newAccount);
     }
 
     @Override
     public List<Account> fetchAll() {
-        logger.info("fetching all accounts...");
+        log.info("fetching all accounts...");
         return accountRepository.findAll();
     }
 
@@ -90,7 +115,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account depositFund(AccountDTO request) {
+    public Account depositFund(CreateAccountDTO request) {
         return null;
     }
 
@@ -100,6 +125,17 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findByAccountNumber(accountNumber);
         if(null == account){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid account number!");
+        }
+        return account;
+    }
+
+    @Override
+    public Account fetchUserAccount(UUID userId) {
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
+        Account account = accountRepository.findByAccountHolder(existingUser);
+        if(null == account){
+            createAccount(existingUser);
         }
         return account;
     }

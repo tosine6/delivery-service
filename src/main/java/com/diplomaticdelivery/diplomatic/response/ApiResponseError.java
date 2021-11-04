@@ -1,4 +1,4 @@
-package com.diplomaticdelivery.diplomatic.responseDto;
+package com.diplomaticdelivery.diplomatic.response;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

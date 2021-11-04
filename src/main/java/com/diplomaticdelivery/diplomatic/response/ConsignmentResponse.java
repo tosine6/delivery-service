@@ -1,10 +1,7 @@
-package com.diplomaticdelivery.diplomatic.responseDto;
+package com.diplomaticdelivery.diplomatic.response;
 
 import com.diplomaticdelivery.diplomatic.model.Consignment;
-import com.diplomaticdelivery.diplomatic.requestDto.CommentDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentTrackerDTO;
-import com.diplomaticdelivery.diplomatic.requestDto.LocationDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.diplomaticdelivery.diplomatic.request.CommentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

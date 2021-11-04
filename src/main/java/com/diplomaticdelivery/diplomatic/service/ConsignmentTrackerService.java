@@ -1,6 +1,6 @@
 package com.diplomaticdelivery.diplomatic.service;
 
-import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentTrackerDTO;
+import com.diplomaticdelivery.diplomatic.request.ConsignmentTrackerDTO;
 import com.diplomaticdelivery.diplomatic.model.ConsignmentTracker;
 
 import java.util.List;

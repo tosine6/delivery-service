@@ -1,9 +1,9 @@
 package com.diplomaticdelivery.diplomatic.controller;
 
 
-import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentDTO;
+import com.diplomaticdelivery.diplomatic.request.ConsignmentDTO;
 import com.diplomaticdelivery.diplomatic.model.Consignment;
-import com.diplomaticdelivery.diplomatic.responseDto.ConsignmentResponse;
+import com.diplomaticdelivery.diplomatic.response.ConsignmentResponse;
 import com.diplomaticdelivery.diplomatic.service.ConsignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

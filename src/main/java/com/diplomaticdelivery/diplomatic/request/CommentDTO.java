@@ -1,4 +1,4 @@
-package com.diplomaticdelivery.diplomatic.requestDto;
+package com.diplomaticdelivery.diplomatic.request;
 
 import com.diplomaticdelivery.diplomatic.model.Comment;
 import com.diplomaticdelivery.diplomatic.model.User;
@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Data
 @Builder

@@ -1,4 +1,4 @@
-package com.diplomaticdelivery.diplomatic.responseDto;
+package com.diplomaticdelivery.diplomatic.response;
 
 import com.diplomaticdelivery.diplomatic.model.Location;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.diplomaticdelivery.diplomatic.controller;
 
-import com.diplomaticdelivery.diplomatic.requestDto.ConsignmentTrackerDTO;
+import com.diplomaticdelivery.diplomatic.request.ConsignmentTrackerDTO;
 import com.diplomaticdelivery.diplomatic.model.ConsignmentTracker;
 import com.diplomaticdelivery.diplomatic.service.ConsignmentTrackerService;
 import org.springframework.beans.factory.annotation.Autowired;
