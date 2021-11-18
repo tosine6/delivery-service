@@ -15,10 +15,8 @@ import com.diplomaticdelivery.diplomatic.response.AccountStatementResponse;
 import com.diplomaticdelivery.diplomatic.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,7 +44,11 @@ public class AccountServiceImpl implements AccountService {
     public Account create(CreateAccountDTO request) {
         log.info("saving account...");
         User existingUser = userRepository.findByName(request.getName());
-        if(null != existingUser){throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with name "+request.getName()+" already exist!");}
+        if(null != existingUser){throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with name "+request.getName()+" already exist!");}
+        User userByEmail = userRepository.findByEmailAddress(request.getEmailAddress());
+        if(null != userByEmail){throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with name "+request.getEmailAddress()+" already exist!");}
+
+
         String password = passwordEncoder.encode(request.getPassword());
         LocalDateTime dateOfBirth = LocalDateTime.of(request.getDateOfBirth(), LocalTime.MIDNIGHT);
         Location location = Location.builder().address(request.getLocation().getAddress()).city(request.getLocation().getCity())
@@ -59,6 +62,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Account createAccount(CreateAccountDTO request, User newUser){
+        log.info("creating new account...");
         //Generate accountNumber
         String accountNumber = generateAccountNumber();
         Account newAccount = Account.builder().currencyCode(CurrencyCode.USD).accountBalance(BigDecimal.ZERO).previousBalance(BigDecimal.ZERO)
@@ -141,8 +145,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public String generateAccountNumber(){
-        long number = (long) (Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L);
-
-        return String.valueOf(number);
+        long sequenceId = LocalDateTime.now().toEpochSecond(ZoneOffset.MAX);
+        return String.valueOf(sequenceId);
     }
 }
