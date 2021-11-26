@@ -1,5 +1,6 @@
 package com.diplomaticdelivery.diplomatic.controller;
 
+import com.diplomaticdelivery.diplomatic.request.LoginRequest;
 import com.diplomaticdelivery.diplomatic.request.RegisterDTO;
 import com.diplomaticdelivery.diplomatic.model.User;
 import com.diplomaticdelivery.diplomatic.service.UserService;
@@ -15,6 +16,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping("/login")
+    @ApiOperation(value = "login")
+    public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
+        return new ResponseEntity<>(userService.login(loginRequest), HttpStatus.CREATED);
+    }
 
     @PostMapping("/register")
     @ApiOperation(value = "Register new client")
